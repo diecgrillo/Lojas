@@ -1,0 +1,23 @@
+install node/npm
+
+//Create git repo
+# git init
+# git remote add origin https://diegogrillo@bitbucket.org/diegogrillo/*.git
+
+//Init npm
+# npm init
+# npm install bower --save-dev
+
+//Intall main components
+# bower install bootstrap
+# bower install angular
+# bower install angular-ui-router
+
+Create index.html (include bootstrap, angular and angular-ui-router dependences)
+Create service.js
+Create controllers.js
+Create app.js (include routers to home, header and fouter.html)
+
+//Install http server to test
+# npm install http-server -g
+# http-server -c-1 -p 8010 

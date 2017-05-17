@@ -1,0 +1,64 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-5 nosso-endereco">
+			<h1 class="text-center">Nosso Endereco</h1>
+			<p class="text-center">
+				Rua Nome da rua, noXX<br> 
+				Nome do Bairro, Cidade-ES<br> 
+				CEP 12345-678<br>
+				<span class="glyphicon glyphicon-phone" aria-hidden="true"> Tel: (XX) XXXX-XXXX</span><br> 
+			</p>
+		</div>
+		<div id="map-container" class="col-xs-12 col-sm-7">			
+			<ng-map center="[-23.011767,-46.84496]" style="">
+				<marker position="[-23.011767,-46.84496]" />
+			</ng-map>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			  <h1>Entre em contato</h1>
+		</div>
+		<div class="col-xs-12 col-sm-9">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Nome</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="Nome">					
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="telnum" class="col-sm-2 control-label">Telefone</label>
+					<div class="col-xs-5 col-sm-4 col-md-3">
+						<div class="input-group">
+							<div class="input-group-addon">(</div>
+								<input type="tel" class="form-control" placeholder="XX">
+							<div class="input-group-addon">)</div>
+						</div>
+					</div>
+					<div class="col-xs-7 col-sm-6 col-md-7">
+								<input type="tel" class="form-control" placeholder="XXXX-XXXX">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input type="email" class="form-control" placeholder="Email">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Mensagem</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="12">
+						</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

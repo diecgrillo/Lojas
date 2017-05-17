@@ -1,0 +1,27 @@
+.row-footer {
+	background-color: #760000;
+	color: #f1f1f1;
+}
+
+.link-footer a{
+    color: #f2d9d9;
+}
+
+.link-footer a:link {
+    color: #f2d9d9;
+}
+
+/* visited link */
+.link-footer a:visited {
+    color: #f8ecec;
+}
+
+/* mouse over link */
+.link-footer a:hover {
+    color: #b27677;
+}
+
+/* selected link */
+.link-footer a:active {
+    color: #f8ecec;
+}

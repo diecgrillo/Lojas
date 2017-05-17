@@ -1,0 +1,21 @@
+<div class="row" ng-controller="MediaVertController">
+	<div class="col-xs-12 col-sm-6 row-pad-10" ng-repeat="vertMedia in vertMedias">
+		<div class="media">
+			<div class="col-xs-12 col-pad-0">
+				  <a href="#">
+					<div class="img-horz-container">
+					  <img class="custom-img-responsive" ng-src={{vertMedia.image}} alt={{vertMedia.title}}>
+					</div> 
+				  </a>
+			</div>
+			<div class="col-xs-12 col-pad-0">
+				  <div class="media-body percentual-pad-5">
+					  <h2 class="media-heading">{{vertMedia.title}}</h2>
+					  <h4>{{vertMedia.subtitle}}</h4>
+					  <p>{{vertMedia.description}}</p>
+					  <p><a class="btn btn-primary btn-xs" href="#">More &raquo;</a></p>
+				  </div>
+			</div>
+		</div>
+	</div>
+</div>

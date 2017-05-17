@@ -1,0 +1,52 @@
+<header>
+	<div class="container visible-sm visible-md visible-lg">
+		<div class="col-xs-12 col-sm-6" id="bunner">
+			<p class="bunner-text">Rua Nome da rua, nºXX, Nome do Bairro, Cidade, CEP 12345-678</p>
+		</div>
+		<div class="col-xs-12 col-sm-3 col-sm-offset-3" id="bunner">
+			<p class="bunner-text" style="text-align:right">Tel: (XX) XXXX-XXXX</p>
+		</div>
+	</div>
+	<nav id="custom-navbar" class="navbar navbar-default custom-navbar" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+								data-toggle="collapse" data-target="#navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand custom-brand" ui-sref="app">
+					<img class="visible-sm visible-md visible-lg"
+								id="logo" src="images/logo.png">
+					<img class="visible-xs"
+  							id="logo_icon" src="images/logo_icon.png">
+				</a>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar" ng-controller="HeaderController">
+				<ul id="custom-menu-item" class="nav navbar-nav custom-menu-item" ng-style="{width: navBarWidth}">
+					<li ng-class="{ active: isActive('/')}"><a ui-sref="app" ng-style="{'line-height': itemHeight+'px'}"> Home </a></li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'pijama-duloren'})" ng-style="{'line-height': itemHeight+'px'}"> Lingeries </a></li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'espartilho-toque-e-magia'})" ng-style="{'line-height': itemHeight+'px'}"> Espartilhos </a></li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'camisola-recco'})" ng-style="{'line-height': itemHeight+'px'}"> Camisolas </a></li>
+					<li class="dropdown">
+	          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ng-style="{'line-height': itemHeight+'px'}">Pijamas <span class="caret"></span></a>
+	          <ul class="dropdown-menu custom-menu-item">
+	            <li ng-class="{ active: isActive('/galery-horz')}"><a ui-sref="app.galery-horz({category: 'pijama'})" ng-style="{'line-height': itemHeight+'px'}"> Lua Encantada </a></li>
+	            <li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'pijama-paulienne'})" ng-style="{'line-height': itemHeight+'px'}"> Paulienne </a></li>
+	          </ul>
+	        </li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'roupao-corttex'})" ng-style="{'line-height': itemHeight+'px'}"> Robes </a></li>
+					<li ng-class="{ active: isActive('/galery-horz')}"><a ui-sref="app.galery-horz({category: 'praia'})" ng-style="{'line-height': itemHeight+'px'}"> Praia </a></li>
+					<li ng-class="{ active: isActive('/galery-horz')}"><a ui-sref="app.galery-horz({category: 'fitness'})" ng-style="{'line-height': itemHeight+'px'}"> Fitness </a></li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'meia-lupo'})" ng-style="{'line-height': itemHeight+'px'}"> Meias </a></li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'masculino'})" ng-style="{'line-height': itemHeight+'px'}"> Masculino </a></li>
+					<li ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'masculino'})" ng-style="{'line-height': itemHeight+'px'}"> Infantil </a></li>
+					<li ng-class="{ active: isActive('/evento')}"><a ui-sref="app.evento" ng-style="{'line-height': itemHeight+'px'}"> Chá de Lingerie </a></li>
+					<li ng-class="{ active: isActive('/contato')}"><a ui-sref="app.contato" ng-style="{'line-height': itemHeight+'px'}"> Contato </a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

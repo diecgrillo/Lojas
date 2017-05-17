@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-sm-6 row-pad-10" ng-repeat="horzMedia in horzMedias" ng-controller="MediaHorzController">
+		<div class="media">
+			<div class="col-xs-4 col-pad-0">
+				<a href="#">
+				<div class="img-vert-container">
+					<img class="custom-img-responsive" ng-src={{horzMedia.image}} alt={{horzMedia.title}}>
+				</div>
+				</a>
+			</div>
+			<div class="col-xs-8 col-pad-0">
+				<div class="media-body percentual-pad-5">
+					<h2 class="media-heading">{{horzMedia.title}}</h2>
+					  <h4>{{horzMedia.subtitle}}</h4>
+					  <p>{{horzMedia.description}}</p>
+					<p><a class="btn btn-primary btn-xs" href="#">More &raquo;</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

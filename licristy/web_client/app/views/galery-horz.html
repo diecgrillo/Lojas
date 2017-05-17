@@ -1,0 +1,32 @@
+<div class="container" ng-controller="GaleryHorzController">
+	<div class="row">
+		<h1>Galeria Horizontal</h1>
+	</div>
+	<div class="row">
+		<p>Algum comentario sobre a galeria horizontal</p>		
+	</div>
+	<div class="row">  
+			<div class="col-xs-12 col-sm-3 col-md-3 row-pad-10">
+				<select class="form-control custom-select pull-left" ng-model="imgPerPage" ng-change="reload()">
+					<option ng-repeat="option in options" ng-value="option.value">{{option.description}}</option>
+				</select>					
+			</div>
+			
+			<div class="col-xs-12 col-sm-7 col-md-5 col-sm-offset-2 col-md-offset-4 row-pad-10">
+				<div ui-view="pagination"></div>
+			</div>
+	</div>
+	<div class="row" >
+		<div class="col-xs-6 col-sm-4 col-pad-0" ng-repeat="horzImage in horzImages">
+			<div class="img-horz-container">
+				<img ng-src={{horzImage.image}} alt={{horzImage.name}} class="custom-img-responsive percentual-pad-5">
+			</div>
+		</div>		
+	</div>
+	
+	<div class="row" >
+		<div class="col-xs-12 row-pad-10">
+			<div ui-view="pagination"></div>
+		</div>
+	</div>
+</div>

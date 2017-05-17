@@ -1,0 +1,136 @@
+#map-container {
+	height: 300px; /* Logo size*/
+}
+
+.btn-whatsapp{
+  background-color: #128c7e;
+	color: #FFFFFF;
+}
+
+.btn-mail{
+  background-color: #FFFFFF;
+	color: red;
+}
+
+.btn-mastercard{
+  background-color: #FFFFFF;
+	color: red;
+}
+
+.visa-ring {
+  width: 100px;
+  height: 100px;
+  color: white;
+  display: inline-table;
+  text-align: center;
+}
+
+.custom-select {
+	max-width: 150px;
+}
+
+.row-pad-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.col-pad-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.col-pad-10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.percentual-pad-8{
+	padding: 8%;
+}
+.percentual-pad-5{
+	padding: 5%;
+}
+
+.custom-img-responsive {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.img-vert-container {
+	padding-bottom: 160%;
+}
+
+.img-horz-container {
+	padding-bottom: 62.5%;
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width:768px) {
+	.row-pad-default {
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+
+	.navbar-default {
+	  height: 152px; /*Same size + 2 pixels from logo*/
+	  padding: 0px;
+	}
+
+	.navbar-nav li a {
+		padding-top: 0px;
+		padding-bottom: 0px;
+	  line-height:150px;  /*Menu itens height*/
+	}
+	.navbar-header a {
+		padding-top: 0px;
+		padding-bottom: 0px;
+		padding-right: 0px;
+		line-height:150px;  /*Logo height inside navbar*/
+	}
+
+	.nosso-endereco{
+		padding-top: 40px;
+	}
+
+	.custom-pagination {
+		margin: 0px !important;
+	}
+}
+
+@media (max-width:768px) {
+	.row-pad-default {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	.navbar-brand {
+		padding-top: 0px;
+		padding-bottom: 0px;
+		position: absolute;
+		left: 50%;
+		text-align: center;
+		margin-left: -70px;
+	}
+
+	.custom-pagination {
+		float: left !important;
+		margin: 0px !important;
+	}
+}
+
+@media(min-width:992px){
+	.row-pad-default {
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+}
+
+@media(min-width:1200px){
+	.row-pad-default {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+}
