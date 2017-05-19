@@ -1,7 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
 
-var hostname = 'localhost';
+var hostname = 'http://diecgrillo-lojas.1d35.starter-us-east-1.openshiftapps.com';
 var port = 3000;
 
 var app = express();
