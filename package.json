@@ -12,7 +12,11 @@
     "bower": "^1.8.0"
   },
   "repository": {
-	"type": "git",
-	"url": "https://diegogrillo@bitbucket.org/diegogrillo/licristy.git"
+    "type": "git",
+    "url": "https://diegogrillo@bitbucket.org/diegogrillo/licristy.git"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "morgan": "^1.8.1"
   }
 }
