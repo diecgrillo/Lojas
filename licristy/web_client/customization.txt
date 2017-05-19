@@ -1,3 +1,0 @@
-1 - Cores da barra de navegação:
-  Editart header.css
-2 - Alterar arquivo de logo (logo.png)
