@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('templateApp')
-	.constant("baseURL","http://localhost:8080/")
+	.constant("baseURL","http://lojas-lojas.1d35.starter-us-east-1.openshiftapps.com/")
 	.service('horzImagesFactory', ['$resource', 'baseURL', function($resource, baseURL){
 
 		this.getHorzImages = function(){
