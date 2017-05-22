@@ -11,3 +11,6 @@ oc lojas \
     mongodb:2.6
 	
 
+$ oc new-app mongodb-persistent -p MONGODB_USER=admin -p MONGODB_PASSWORD=abcdef -p MONGODB_ADMIN_PASSWORD=abcdef
+
+$ oc set env dc/lojas MONGO_URL='mongodb://admin:abcdef@172.30.12.11:27017/sampledb'
