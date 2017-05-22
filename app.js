@@ -8,12 +8,42 @@ var mongoose = require('mongoose');
 var eps     = require('ejs');
 
 // default to a 'localhost' configuration:
-var connection_string = '127.0.0.1:27017/template';
+//var connection_string = '127.0.0.1:27017/template';
 
-console.log("###############0");
+var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL, 
+	mongoURLLabel = "";
+
+console.log("###############0" + mongoURL);
+
+if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
+	
+	console.log("###############1 $$$");
+	var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
+		mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
+		mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
+		mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
+		mongoPassword = process.env[mongoServiceName + '_PASSWORD']
+		mongoUser = process.env[mongoServiceName + '_USER'];
+
+	if (mongoHost && mongoPort && mongoDatabase) {
+		console.log("###############2 $$$");
+		mongoURLLabel = mongoURL = 'mongodb://';
+		if (mongoUser && mongoPassword) {
+		  mongoURL += mongoUser + ':' + mongoPassword + '@';
+		}
+		// Provide UI label that excludes user id and pw
+		mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
+		mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
+		console.log("###############3 $$$" + mongoURL);
+	} 
+}else if (mongoURL == null){
+		mongoURL = 'mongodb://127.0.0.1:27017/template'
+		console.log("###############4 $$$" + mongoURL);
+}
+
 
 // if OPENSHIFT env variables are present, use the available connection info:
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+/*if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
 	console.log("###############1");
 	
   connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
@@ -22,16 +52,16 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
   process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
   process.env.OPENSHIFT_APP_NAME;
   console.log("###############2" + connection_string);
-}
+}*/
 
 
-var url = 'mongodb://'+connection_string;
-mongoose.connect(url);
+//var url = 'mongodb://'+connection_string;
+mongoose.connect(mongoURL);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     // we're connected!
-    console.log("Connected correctly to server: " + url);
+    console.log("Connected correctly to server: " + mongoURL);
 });
 
 var index = require('./routes/index');
