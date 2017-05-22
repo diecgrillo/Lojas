@@ -48,6 +48,7 @@ var initDb = function(callback) {
 console.log("Connect to: " + mongoURL);
   mongodb.connect(mongoURL, function(err, conn) {
     if (err) {
+      console.log("#######" + err);
       callback(err);
       return;
     }
@@ -65,10 +66,14 @@ app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
+    console.log('initDb called');
     initDb(function(err){});
   }
   if (db) {
+    console.log('find images');
     var col = db.image.find({});
+    //mongodb://admin:secret@<your_mongodb_service_ip>:27017/sampledb
+    //mongodb://admin:abcdef@172.30.12.11             :27017/licristy
 
     col.count(function(err, count){
       //res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
