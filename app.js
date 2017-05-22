@@ -9,6 +9,9 @@ var eps     = require('ejs');
 
 // default to a 'localhost' configuration:
 var connection_string = '127.0.0.1:27017/template';
+
+console.log("###############0");
+
 // if OPENSHIFT env variables are present, use the available connection info:
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
 	console.log("###############1");
