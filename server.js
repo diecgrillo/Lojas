@@ -71,7 +71,7 @@ app.get('/', function (req, res) {
   }
   if (db) {
     console.log('find images');
-    var col = db.image.find({});
+    var col = db.images.find({});
     //mongodb://admin:secret@<your_mongodb_service_ip>:27017/sampledb
     //mongodb://admin:abcdef@172.30.12.11             :27017/licristy
 

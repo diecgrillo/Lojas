@@ -4,7 +4,7 @@
   "description": "licrist client web",
   "main": "startClient.sh",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./bin/www",
     "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install"
   },
   "author": "Diego de Castro Grillo",

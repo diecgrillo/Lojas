@@ -10,13 +10,13 @@ var eps     = require('ejs');
 // default to a 'localhost' configuration:
 //var connection_string = '127.0.0.1:27017/template';
 
-var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL, 
+var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
 	mongoURLLabel = "";
 
-console.log("###############0" + mongoURL);
+console.log("###############0 " + mongoURL);
 
 if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-	
+
 	console.log("###############1 $$$");
 	var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
 		mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
@@ -35,7 +35,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 		mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
 		mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
 		console.log("###############3 $$$" + mongoURL);
-	} 
+	}
 }else if (mongoURL == null){
 		mongoURL = 'mongodb://127.0.0.1:27017/template'
 		console.log("###############4 $$$" + mongoURL);
@@ -45,7 +45,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 // if OPENSHIFT env variables are present, use the available connection info:
 /*if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
 	console.log("###############1");
-	
+
   connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
   process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
   process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
