@@ -1,115 +1,73 @@
-//  OpenShift sample Node application
-var express = require('express'),
-    fs      = require('fs'),
-    app     = express(),
-    eps     = require('ejs'),
-    morgan  = require('morgan');
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var eps     = require('ejs');
 
-//Object.assign=require('object-assign')
+var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
 
-app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
-
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
-    mongoURLLabel = "";
-
-console.log("mongoURL: " + mongoURL);
-
-if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-  var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-      mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-      mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-      mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-      mongoUser = process.env[mongoServiceName + '_USER'];
-
-  if (mongoHost && mongoPort && mongoDatabase) {
-    mongoURLLabel = mongoURL = 'mongodb://';
-    if (mongoUser && mongoPassword) {
-      mongoURL += mongoUser + ':' + mongoPassword + '@';
-    }
-    // Provide UI label that excludes user id and pw
-    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-    mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-
-  }
+if (mongoURL == null){
+	mongoURL = 'mongodb://127.0.0.1:27017/template';
 }
-var db = null;
-    //dbDetails = new Object();
-console.log("mongoURL 2: " + mongoURL);
 
-var initDb = function(callback) {
-  if (mongoURL == null) return;
+console.log("MongoURL = " + mongoURL);
 
-  var mongodb = require('mongodb');
-  if (mongodb == null) return;
-console.log("Connect to: " + mongoURL);
-  mongodb.connect(mongoURL, function(err, conn) {
-    if (err) {
-      console.log("#######" + err);
-      callback(err);
-      return;
-    }
+mongoose.connect(mongoURL);
 
-    db = conn;
-    //dbDetails.databaseName = db.databaseName;
-    //dbDetails.url = mongoURLLabel;
-    //dbDetails.type = 'MongoDB';
+var db = mongoose.connection;
 
-    console.log('Connected to MongoDB at: %s', mongoURL);
-  });
-};
+db.on('error', console.error.bind(console, 'connection error:'));
 
-app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    console.log('initDb called');
-    initDb(function(err){});
-  }
-  if (db) {
-    console.log('find images');
-    var col = db.images.find({});
-    //mongodb://admin:secret@<your_mongodb_service_ip>:27017/sampledb
-    //mongodb://admin:abcdef@172.30.12.11             :27017/licristy
-
-    col.count(function(err, count){
-      //res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-      console.log( "Number of docs: ", count );
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
+db.once('open', function () {
+    // we're connected!
+    console.log("Connected correctly to server");
 });
 
-app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
+//Routes
+var index = require('./routes/index');
+var users = require('./routes/users');
+var mediaRouter = require('./routes/mediaRouter');
+var imageRouter = require('./routes/imageRouter');
+
+// Starting app
+var app = express();
+
+// view engine setup
+app.engine('html', eps.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname);
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'app')));
+app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
+
+app.use('/', index);
+app.use('/users', users);
+app.use('/media', mediaRouter);
+app.use('/image', imageRouter);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
-// error handling
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  res.status(500).send('Something bad happened!');
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-initDb(function(err){
-  console.log('Error connecting to Mongo. Message:\n'+err);
-});
-
-app.listen(port, ip);
-console.log('Server running on http://%s:%s', ip, port);
-
-module.exports = app ;
+module.exports = app;
