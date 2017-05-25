@@ -43,21 +43,30 @@ angular.module('templateApp')
 					img = document.getElementById('logo');
 					navBar = document.getElementById('navbar');
 					$scope.navBarWidth = navBar.clientWidth - img.naturalWidth - 30;
+					$scope.$apply();
 					$scope.itemHeight = img.clientHeight / getItemsLinesCount();
 					$scope.$apply();
 				} else {
 					var customNavbar = document.getElementById('custom-navbar');
 					$scope.navBarWidth = customNavbar.clientWidth;
+					$scope.$apply();
 					$scope.itemHeight = 40;
 					$scope.$apply();
 				}
 			};
+			
+			img.onload = function () { 
+				$scope.navBarWidth = navBar.clientWidth - img.naturalWidth - 30;
+				$scope.$apply();
+				$scope.itemHeight = img.clientHeight / getItemsLinesCount();
+				$scope.$apply();
+			}
 
 			//Get the number of lines occupied by items
 			var getItemsLinesCount = function(){
 				var lines = 1;
 				var menu = document.getElementById('custom-menu-item');
-				var items = menu.getElementsByTagName("li");
+				var items = menu.getElementsByClassName("custom-item");
 				for (var i = 0; i < items.length-1; ++i) {
 						if(items[i].offsetTop != items[i+1].offsetTop)
 							lines++;
