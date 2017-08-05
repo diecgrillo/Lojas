@@ -9,6 +9,7 @@ $ oc new-app mongodb-persistent -p MONGODB_USER=admin -p MONGODB_PASSWORD=abcdef
 
 $ oc set env dc/lojas MONGO_URL='mongodb://admin:abcdef@172.30.12.11:27017/licristy'
 
+oc rsync dump/ mongodb-2-1zs2h:/tmp --no-perms
 sh-4.2$ mongorestore /var/lib/mongodb/dump/template/ --db licristy --username admin --password abcdef --authenticationDatabase admin
 
 sh-4.2$ mongo admin -u admin -p abcdef

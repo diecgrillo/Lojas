@@ -9,11 +9,12 @@ var eps     = require('ejs');
 var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
 
 if (mongoURL == null){
-	mongoURL = 'mongodb://127.0.0.1:27017/template';
+	mongoURL = 'mongodb://127.0.0.1:27017/licristy';
 }
 
 console.log("MongoURL = " + mongoURL);
 
+mongoose.Promise = global.Promise;
 mongoose.connect(mongoURL);
 
 var db = mongoose.connection;
@@ -30,6 +31,8 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var mediaRouter = require('./routes/mediaRouter');
 var imageRouter = require('./routes/imageRouter');
+var uploadRouter = require('./routes/uploadRouter');
+var productRouter = require('./routes/productRouter');
 
 // Starting app
 var app = express();
@@ -48,9 +51,11 @@ app.use(express.static(path.join(__dirname, 'app')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', index);
-app.use('/users', users);
-app.use('/media', mediaRouter);
+//app.use('/users', users);
+//app.use('/media', mediaRouter);
 app.use('/image', imageRouter);
+app.use('/upload', uploadRouter);
+app.use('/product', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -67,7 +72,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
 module.exports = app;

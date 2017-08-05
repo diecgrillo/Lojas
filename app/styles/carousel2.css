@@ -1,0 +1,69 @@
+.event {
+  background-image: url("../images/cha de lingerie/background.png");
+  background-size: cover;
+}
+
+#carousel-multiple {
+    margin-bottom: 0;
+    padding: 30px 40px 30px 40px;
+}
+/* The controlsy */
+.carousel-multiple-control {
+    height: 40px;
+	  width: 40px;
+    background: none repeat scroll 0 0 #760000;
+    border: 4px solid #FFFFFF;
+    border-radius: 23px 23px 23px 23px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* The indicators */
+.carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: -10px;
+	margin-right: -19px;
+}
+
+/* The colour of the indicators */
+.carousel-indicators li {
+	background: #b8a78d;
+}
+.carousel-indicators .active {
+  background: #760000;
+}
+
+.custom-header-event {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 10%;
+  color: #760000;
+
+}
+
+.custom-paragraph-event {
+    color: #760000;
+    font-size: 120%;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10%;
+}
+
+@media (min-width:768px) {
+  .col-pad-carousel-img {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+@media (max-width:768px) {
+  .col-pad-carousel-img {
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap'])
+angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap', 'ngFileUpload'])
 	.config(function($stateProvider, $urlRouterProvider) {
 		$stateProvider
 					// route for the home page
@@ -15,7 +15,7 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					},
 					'carousel@app': {
 						templateUrl : 'views/carousel-image.html',
-						controller  : 'CarouselImageController'
+						controller  : 'CarouselController'
 					},
 					'home-row1@app': {
 						templateUrl : 'views/home-row1.html',
@@ -62,6 +62,18 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 						 }
 					}
 			})
+			.state('app.galery-vert-modelador', {
+					url:'galery-vert-modelador/:category',
+					views: {
+							'content@': {
+									templateUrl : 'views/galery-vert-modelador.html',
+									controller  : 'GaleryVertController'
+						 },
+						 'pagination@app.galery-vert': {
+								 templateUrl : 'views/pagination.html'
+						 }
+					}
+			})
 			.state('app.contato', {
 					url:'contato',
 					views: {
@@ -77,6 +89,15 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 							'content@': {
 									templateUrl : 'views/evento.html'
 									//controller  : 'AboutController'
+						 }
+					}
+			})
+			.state('app.upload', {
+					url:'upload',
+					views: {
+							'content@': {
+									templateUrl : 'views/uploadImages.html',
+									controller  : 'UploadFilesController'
 						 }
 					}
 			});

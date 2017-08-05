@@ -1,15 +1,15 @@
-<div class="row">
-  <div class="col-xs-12 row-pad-default">
-    <div id="mainCarousel" class="carousel slide" interval="3000" data-ride="carousel" ng-controller="CarouselImageController">
+<div class="row custom-carousel row-pad-default">
+  <div class="col-xs-12">
+    <div id="mainCarousel" class="carousel slide" interval="3000" data-ride="carousel" ng-controller="CarouselController">
       <!-- Indicators -->
 	  <ol class="carousel-indicators">
-        <li ng-repeat="image in horzImages" data-target="#mainCarousel" data-slide-to="{{$index}}" ng-class="{'active': $index == 0}"></li>
+        <li ng-repeat="image in carouselImages" data-target="#mainCarousel" data-slide-to="{{$index}}" ng-class="{'active': $index == 0}"></li>
 	  </ol>
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item" ng-class="{'active': $index == 0}" ng-repeat="image in horzImages">
+        <div class="item" ng-class="{'active': $index == 0}" ng-repeat="image in carouselImages">
           <img class="img-responsive"
-           ng-src={{image.image}} alt={{image.title}}>
+           ng-src={{image.path}}>
         </div>
       </div>
       <!-- Controls -->

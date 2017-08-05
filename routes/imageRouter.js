@@ -15,21 +15,23 @@ imageRouter.route('/')
         res.json(image);
     });
 })
+
 .post(function (req, res, next){
-	var imageArray = req.body;
-	for(var i =0; i < imageArray.length; i++){
-		Images.create(imageArray[i], function (err, image) {
-			if (err) throw err;
-			var id = image._id;
-			console.log('created image with id: ' + id);
-
+  	var image = req.body;
+    if(image.path){
+        var root = image.path.split("/");
+        console.log(root[0]);
+        image.path = image.path.replace(root[0]+"/", "");
+        console.log(image.path);
+    }
+  	Images.create(image, function (err, img) {
+        if (err)
+        {
+            err.status = 400;
+            return next(err);
+        }
+        res.json(img);
 		});
-	}
-
-	res.writeHead(200, {
-		'Content-Type': 'text/plain'
-	});
-	res.end('Added all images');
 })
 
 .delete(function (req, res, next){
@@ -39,54 +41,24 @@ imageRouter.route('/')
     });
 });
 
-imageRouter.route('/horz-featured')
+imageRouter.route('/carousel')
 .get(function(req,res,next){
-    Images.find({orientation:"horizontal", featured:true}, function (err, image) {
-        if (err) throw err;
+    Images.find({tag:"carousel"}, function (err, image) {
+        if (err) {
+            err.status = 400;
+            return next(err);
+        }
         res.json(image);
     });
 });
 
-imageRouter.route('/horz-size')
+imageRouter.route('/marca')
 .get(function(req,res,next){
-	Images.count({orientation:"horizontal"}, function(err, count){
-		console.log( "Number of docs: ", count );
-		res.json({size:count});
-	});
-});
-
-imageRouter.route('/vert-size')
-.get(function(req,res,next){
-	Images.count({orientation:"vertical"}, function(err, count){
-		console.log( "Number of docs: ", count );
-		res.json({size:count});
-	});
-});
-
-imageRouter.route('/horz/:category/:page-limit:limit')
-.get(function(req,res,next){
-	//Getting the limit and skip
-	var limit = isNaN(req.params.limit)?10:Number(req.params.limit);
-	var skip = isNaN(req.params.page)?0:Number((req.params.page-1)*limit);
-  var category = req.params.category;
-
-	console.log('skip='+ skip + ", limit="+limit);
-	Images.find({orientation:"horizontal", categoria:category},{},{skip:skip, limit:limit}, function (err, image) {
-        if (err) throw err;
-        res.json(image);
-    });
-});
-
-imageRouter.route('/vert/:category/:page-limit:limit')
-.get(function(req,res,next){
-	//Getting the limit and skip
-	var limit = isNaN(req.params.limit)?10:Number(req.params.limit);
-	var skip = isNaN(req.params.page)?0:Number((req.params.page-1)*limit);
-  var category = req.params.category;
-
-	console.log('skip='+ skip + ", limit="+limit);
-	Images.find({orientation:"vertical", categoria:category},{},{skip:skip, limit:limit}, function (err, image) {
-        if (err) throw err;
+    Images.find({tag:"marca"}, function (err, image) {
+        if (err) {
+            err.status = 400;
+            return next(err);
+        }
         res.json(image);
     });
 });
@@ -94,7 +66,10 @@ imageRouter.route('/vert/:category/:page-limit:limit')
 imageRouter.route('/:imageId')
 .get(function(req,res,next){
     Images.findById(req.params.imageId, function (err, image) {
-        if (err) throw err;
+        if (err) {
+            err.status = 400;
+            return next(err);
+        }
         res.json(image);
     });
 })
@@ -116,5 +91,6 @@ imageRouter.route('/:imageId')
 			res.json(resp);
     });
 });
+
 
 module.exports = imageRouter;

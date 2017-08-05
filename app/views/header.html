@@ -1,10 +1,10 @@
 <header>
 	<div class="container visible-sm visible-md visible-lg">
-		<div class="col-xs-12 col-sm-6" id="bunner">
-			<p class="bunner-text">Rua Nome da rua, nºXX, Nome do Bairro, Cidade, CEP 12345-678</p>
+		<div class="col-xs-12 col-sm-9" id="bunner">
+			<p class="bunner-text">R. Benedito da Silveira Franco, nº10, Vila Santa Luzia, Itatiba-SP, CEP 13255-320</p>
 		</div>
-		<div class="col-xs-12 col-sm-3 col-sm-offset-3" id="bunner">
-			<p class="bunner-text" style="text-align:right">Tel: (XX) XXXX-XXXX</p>
+		<div class="col-xs-12 col-sm-3" id="bunner">
+			<p class="bunner-text" style="text-align:right">Tel: (11) 4524-3871</p>
 		</div>
 	</div>
 	<nav id="custom-navbar" class="navbar navbar-default custom-navbar" role="navigation">
@@ -27,7 +27,7 @@
 			<div class="navbar-collapse collapse" id="navbar" ng-controller="HeaderController">
 				<ul id="custom-menu-item" class="nav navbar-nav custom-menu-item" ng-style="{width: navBarWidth}">
 					<li class="custom-item" ng-class="{ active: isActive('/')}"><a ui-sref="app" ng-style="{'line-height': itemHeight+'px'}"> Home </a></li>
-					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'pijama-duloren'})" ng-style="{'line-height': itemHeight+'px'}"> Lingeries </a></li>
+					<!--li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'pijama-duloren'})" ng-style="{'line-height': itemHeight+'px'}"> Lingeries </a></li>
 					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'espartilho-toque-e-magia'})" ng-style="{'line-height': itemHeight+'px'}"> Espartilhos </a></li>
 					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'camisola-recco'})" ng-style="{'line-height': itemHeight+'px'}"> Camisolas </a></li>
 					<li class="custom-item" class="dropdown">
@@ -42,7 +42,10 @@
 					<li class="custom-item" ng-class="{ active: isActive('/galery-horz')}"><a ui-sref="app.galery-horz({category: 'fitness'})" ng-style="{'line-height': itemHeight+'px'}"> Fitness </a></li>
 					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'meia-lupo'})" ng-style="{'line-height': itemHeight+'px'}"> Meias </a></li>
 					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'masculino'})" ng-style="{'line-height': itemHeight+'px'}"> Masculino </a></li>
-					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'masculino'})" ng-style="{'line-height': itemHeight+'px'}"> Infantil </a></li>
+					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'masculino'})" ng-style="{'line-height': itemHeight+'px'}"> Infantil </a></li-->
+					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'gestantes'})" ng-style="{'line-height': itemHeight+'px'}"> Gestantes </a></li>
+					<li class="custom-item" ng-class="{ active: isActive('/galery-vert-modelador')}"><a ui-sref="app.galery-vert-modelador({category: 'modeladores'})" ng-style="{'line-height': itemHeight+'px'}"> Modeladores </a></li>
+					<li class="custom-item" ng-class="{ active: isActive('/galery-vert')}"><a ui-sref="app.galery-vert({category: 'sex shop'})" ng-style="{'line-height': itemHeight+'px'}"> Sex Shop </a></li>
 					<li class="custom-item" ng-class="{ active: isActive('/evento')}"><a ui-sref="app.evento" ng-style="{'line-height': itemHeight+'px'}"> Chá de Lingerie </a></li>
 					<li class="custom-item" ng-class="{ active: isActive('/contato')}"><a ui-sref="app.contato" ng-style="{'line-height': itemHeight+'px'}"> Contato </a></li>
 				</ul>

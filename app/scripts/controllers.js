@@ -1,22 +1,22 @@
 'use strict';
 
 angular.module('templateApp')
-	.controller('CarouselMediaController', ['$scope', 'vertMediaFactory', function($scope, vertMediaFactory) {
-		$scope.medias = [];
-		$scope.medias = vertMediaFactory.getFeaturedVertMedias().query(
+	.controller('CarouselController', ['$scope', 'carouselFactory', function($scope, carouselFactory) {
+		$scope.carouselImages = [];
+		$scope.carouselImages = carouselFactory.getImages().query(
 			function(response) {
-				$scope.medias = response;
+				$scope.horzImages = response;
 			},
 			function(response) {
 				$scope.message = "Error: "+response.status + " " + response.statusText;
 			}
 		);
 	}])
-	.controller('CarouselImageController', ['$scope', 'horzImagesFactory', function($scope, horzImagesFactory) {
-		$scope.horzImages = [];
-		$scope.horzImages = horzImagesFactory.getFeaturedHorzImages().query(
+	.controller('HomeRow3Controller', ['$scope', 'marcasFactory', function($scope, marcasFactory) {
+		$scope.marcas = [];
+		$scope.marcas = marcasFactory.getImages().query(
 			function(response) {
-				$scope.horzImages = response;
+				$scope.marcas = response;
 			},
 			function(response) {
 				$scope.message = "Error: "+response.status + " " + response.statusText;
@@ -54,8 +54,8 @@ angular.module('templateApp')
 					$scope.$apply();
 				}
 			};
-			
-			img.onload = function () { 
+
+			img.onload = function () {
 				$scope.navBarWidth = navBar.clientWidth - img.naturalWidth - 30;
 				$scope.$apply();
 				$scope.itemHeight = img.clientHeight / getItemsLinesCount();
@@ -101,7 +101,7 @@ angular.module('templateApp')
 			);
 	}]
 	)
-	.controller('GaleryVertController', ['$scope', '$stateParams', 'vertImagesFactory', function($scope, $stateParams, vertImagesFactory) {
+	.controller('GaleryVertController', ['$scope', '$stateParams', 'productFactory', function($scope, $stateParams, productFactory) {
 
 		//Select Component
 		$scope.options = [
@@ -114,7 +114,7 @@ angular.module('templateApp')
 
 		$scope.imgPerPage = 36;
 
-		$scope.vertImages = [];
+		$scope.product = [];
 
 		//Pagination Component
 		$scope.numOfImages = 0;
@@ -125,13 +125,14 @@ angular.module('templateApp')
 			$scope.currentPage = pageNo;
 		};
 
-		$scope.getVertImages = function(){
-			return vertImagesFactory.getVertImagesSize().get(
+		$scope.getProducts = function(){
+				return productFactory.getProductsSize().get({category:category},
 				function(response) {
 					$scope.numOfImages = response.size;
-					$scope.vertImages = vertImagesFactory.getVertImages().getImagesRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category},
+					$scope.maxPages = Math.ceil($scope.numOfImages/$scope.imgPerPage);
+					$scope.products = productFactory.getProducts().getProductsRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category},
 						function(response) {
-							$scope.vertImages = response;
+							$scope.products = response;
 						},
 						function(response) {
 							$scope.message = "Error: "+response.status + " " + response.statusText;
@@ -145,11 +146,10 @@ angular.module('templateApp')
 		}
 
 		$scope.reload = function(){
-			$scope.getVertImages();
+			$scope.getProducts();
 		}
 
-		$scope.getVertImages();
-
+		$scope.getProducts();
 
 	}])
 	.controller('GaleryHorzController', ['$scope', '$stateParams', 'horzImagesFactory', function($scope, $stateParams, horzImagesFactory) {
@@ -179,7 +179,7 @@ angular.module('templateApp')
 			return horzImagesFactory.getHorzImagesSize().get(
 				function(response) {
 					$scope.numOfImages = response.size;
-					$scope.horzImages = horzImagesFactory.getHorzImages().getImagesRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category},
+					$scope.horzImages = horzImagesFactory.getHorzImages().getProductsRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category},
 						function(response) {
 							$scope.horzImages = response;
 						},
@@ -252,47 +252,126 @@ angular.module('templateApp')
 		);
 
 	}])
-	.controller('HomeRow2Controller', ['$scope', 'vertMediaFactory', function($scope, vertMediaFactory) {
-		vertMediaFactory.getMediaById().get({mediaId:"5904f329210610247ee184ac"} ,
+	.controller('HomeRow2Controller', ['$scope', '$stateParams', 'productFactory', function($scope, $stateParams, productFactory) {
+
+		$scope.products = [];
+
+		$scope.products = productFactory.getProducts().getProductsRange({limit:4, page:1, category:"home"},
 			function(response) {
-				$scope.media4 = response;
-			},
-			function(response) {
-				$scope.message = "Error: "+response.status + " " + response.statusText;
-			}
-		);
-		vertMediaFactory.getMediaById().get({mediaId:"59062b2c0b6486535e508016"} ,
-			function(response) {
-				$scope.media5 = response;
-			},
-			function(response) {
-				$scope.message = "Error: "+response.status + " " + response.statusText;
-			}
-		);
-		vertMediaFactory.getMediaById().get({mediaId:"59062f990b6486535e508017"} ,
-			function(response) {
-				$scope.media6 = response;
-			},
-			function(response) {
-				$scope.message = "Error: "+response.status + " " + response.statusText;
-			}
-		);
-		vertMediaFactory.getMediaById().get({mediaId:"590634aa0b6486535e508018"} ,
-			function(response) {
-				$scope.media7 = response;
+				$scope.horzImages = response;
 			},
 			function(response) {
 				$scope.message = "Error: "+response.status + " " + response.statusText;
 			}
 		);
 	}])
-	.controller('HomeRow3Controller', ['$scope', 'horzImagesFactory', function($scope, horzImagesFactory) {
-		$scope.marcas = horzImagesFactory.getHorzImages().getImagesRange({limit:12, page:1, category:"marca"},
-			function(response) {
-				$scope.marcas = response;
-			},
-			function(response) {
-				$scope.message = "Error: "+response.status + " " + response.statusText;
-			}
-		);
+	.controller('UploadFilesController', ['$scope', '$http', 'postImageFactory', 'productFactory', 'Upload', '$timeout', function ($scope, $http, postImageFactory, productFactory, Upload, $timeout) {
+		// Data to be sent to the server with the upload request
+		$scope.brands = ["recco", "luppo", "doloren", "plie", "hotflowers","none"];
+		$scope.categories = ["meias", "cuecas", "pijamas", "lingerie", "robes", "roupões", "gestantes", "modeladores", "sex shop","home"];
+
+		$scope.orientation = "vertical";
+		$scope.category = $scope.categories[0];
+		$scope.brand = $scope.brands[0];
+		$scope.name = "Conheça a Loja";
+
+		$scope.uploadFiles = function (files) {
+				$scope.files = [];
+				$scope.progress = "";
+				$scope.loaded = 0;
+				$scope.total = files.length;
+		    for (var i = 0; i < files.length; i++) {
+						var file =
+						$scope.files.push({
+								name: files[i].name,
+								status: "PENDING",
+								message: "Carregando arquivo..."
+						});
+		        Upload.upload({
+                url: '/upload/'+$scope.category,
+                data: {
+										username: $scope.username,
+										password: $scope.password,
+										file: files[i]
+                }
+		        }).then(function (response) {
+		                $timeout(function () {
+		                    $scope.result = response.data;
+
+												for(var j = 0; j < $scope.files.length; j++){
+														if(response.data.filename == $scope.files[j].name){
+																if(response.data.returncode == "SUCCESS"){
+																		var image = {
+																				path: response.data.returndata,
+																				orientation: $scope.orientation
+																		}
+
+																		postImageFactory.save(image,
+																				function(img) {
+																					console.log(img._id);
+
+																					var product = {
+																							name: $scope.name,
+																							brand: $scope.brand,
+																							category: $scope.category,
+																							image: img._id
+																					}
+
+																					productFactory.save(product,
+																							function(prod) {
+																									$scope.files[j].status = "OK";
+																									$scope.files[j].message = "Arquivo carregado com sucesso!"
+																									$scope.loaded++;
+																									$scope.progress =  Math.min(100, parseInt(100.0 * $scope.loaded / $scope.total));
+																							},
+																							function(response) {
+																									$scope.message = "Error: "+response.status + " " + response.statusText;
+																									$scope.loaded++;
+																									$scope.progress =  Math.min(100, parseInt(100.0 * $scope.loaded / $scope.total));
+																							}
+																					);
+
+																				},
+																				function(response) {
+																					$scope.files[j].status = "ERROR";
+																					console.log(response.data.code);
+																					$scope.loaded++;
+																					$scope.progress =  Math.min(100, parseInt(100.0 * $scope.loaded / $scope.total));
+																					if(response.data.code == 11000) {
+																							console.log(response.data.code);
+																							$scope.files[j].message = "Falha ao carregar arquivo: Você já possuí uma imagem cadastrada com o nome " + $scope.files[j].name + " na categoria " + $scope.category + ".";
+																					}
+																					else {
+																							$scope.message = "Error: "+response.status + " " + response.statusText;
+																					}
+																				}
+																		);
+
+																}
+																else {
+																		console.log(response.data.returncode);
+																		$scope.files[j].status = "ERROR";
+																		$scope.loaded++;
+																		$scope.progress =  Math.min(100, parseInt(100.0 * $scope.loaded / $scope.total));
+																		if(response.data.returncode == "ERR_TYPE_NOT_SUPPORTED"){
+																				$scope.files[j].message = "Falha ao carregar arquivo: O tipo do arquivo não é suportado. O arquivo precisa ser de um dos seguintes tipos: png, jpeg, jpg ou gif.";
+																		} else if (response.data.returncode == "ERR_FILE_ALREADY_EXISTS") {
+																				$scope.files[j].message = "Falha ao carregar arquivo: A categoria " + $scope.category + " já possui um arquivo com o nome " + $scope.files[j].name + ".";
+																		} else if (response.data.returncode == "LIMIT_FILE_SIZE") {
+																				$scope.files[j].message = "Falha ao carregar arquivo: O tamanho do arquivo excede 15 MB.";
+																		}
+																}
+																break;
+														}
+												}
+		                });
+		            }, function (response) {
+										$scope.loaded++;
+										$scope.progress =  Math.min(100, parseInt(100.0 * $scope.loaded / total));
+		                if (response.status > 0) {
+		                    $scope.errorMsg = response.status + ': ' + response.data;
+		                }
+		            });
+		        }
+				};
 	}]);

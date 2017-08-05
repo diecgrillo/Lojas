@@ -4,27 +4,20 @@ var Schema = mongoose.Schema;
 
 // crate a Schema
 var imageSchema = new Schema({
-    name: {
+    path: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
-    image: {
-      type: String,
-      required: true
-    },
-    featured: {
-        type: Boolean,
-        default:false
-    },
-	orientation:{
-	  type: String,
+  	orientation:{
+  	  type: String,
       enum : ['vertical','horizontal'],
       required: true
-	},
-  categoria:{
-    type: String,
-    default: ""
-  }
+  	},
+    tag:{
+      type: String,
+      default: ""
+    }
 }, {
     timestamps: true
 });

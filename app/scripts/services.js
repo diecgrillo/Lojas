@@ -2,12 +2,13 @@
 
 angular.module('templateApp')
 	.constant("baseURL","http://lojas-lojas.1d35.starter-us-east-1.openshiftapps.com/")
+	//.constant("baseURL","http://localhost:8080/")
 	.service('horzImagesFactory', ['$resource', 'baseURL', function($resource, baseURL){
 
 		this.getHorzImages = function(){
 			return $resource(baseURL+"image/horz/:category/:page-limit:limit", {},
 			{
-				getImagesRange:{
+				getProductsRange:{
 					method: 'GET',
 					isArray: true,
 					params:{
@@ -26,11 +27,17 @@ angular.module('templateApp')
 			return $resource(baseURL+"image/horz-featured");
 		};
 	}])
-	.service('vertImagesFactory', ['$resource', 'baseURL', function($resource, baseURL){
-		this.getVertImages = function(){
-			return $resource(baseURL+"image/vert/:category/:page-limit:limit", {},
+	.service('productFactory', ['$resource', 'baseURL', function($resource, baseURL){
+			return $resource(baseURL+"product");
+	}])
+	.service('postImageFactory', ['$resource', 'baseURL', function($resource, baseURL){
+			return $resource(baseURL+"image");
+	}])
+	.service('productFactory', ['$resource', 'baseURL', function($resource, baseURL){
+		this.getProducts = function(){
+			return $resource(baseURL+"product/:category/:page-limit:limit", {},
 			{
-				getImagesRange:{
+				getProductsRange:{
 					method: 'GET',
 					isArray: true,
 					params:{
@@ -41,8 +48,8 @@ angular.module('templateApp')
 				}
 			});
 		};
-		this.getVertImagesSize = function(){
-			return $resource(baseURL+"image/vert-size");
+		this.getProductsSize = function(){
+			return $resource(baseURL+"product/:category/size");
 		};
 	}])
 	.service('horzMediaFactory', ['$resource', 'baseURL', function($resource, baseURL){
@@ -65,4 +72,14 @@ angular.module('templateApp')
 		this.getMediaById = function(){
 			return $resource(baseURL+"media/:mediaId");
 		};
+	}])
+	.service('carouselFactory', ['$resource', 'baseURL', function($resource, baseURL){
+			this.getImages = function(){
+				return $resource(baseURL+"image/carousel");
+			};
+	}])
+	.service('marcasFactory', ['$resource', 'baseURL', function($resource, baseURL){
+			this.getImages = function(){
+				return $resource(baseURL+"image/marca");
+			};
 	}]);

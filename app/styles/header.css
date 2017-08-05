@@ -27,18 +27,7 @@ ul.nav.navbar-nav .dropdown.open .dropdown-toggle
   padding-bottom: 0px;
 }
 
-@media(max-width:767px){
-	.custom-navbar {margin-bottom:3px;}
-}
-@media(min-width:768px){
-	.custom-navbar {margin-bottom:5px;}
-}
-@media(min-width:992px){
-	.custom-navbar {margin-bottom:8px;}
-}
-@media(min-width:1200px){
-	.custom-navbar {margin-bottom:10px;}
-}
+.custom-navbar {margin-bottom:0px;}
 
 header{
   background: #b8a78d;
