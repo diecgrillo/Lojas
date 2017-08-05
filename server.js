@@ -28,8 +28,6 @@ db.once('open', function () {
 
 //Routes
 var index = require('./routes/index');
-var users = require('./routes/users');
-var mediaRouter = require('./routes/mediaRouter');
 var imageRouter = require('./routes/imageRouter');
 var uploadRouter = require('./routes/uploadRouter');
 var productRouter = require('./routes/productRouter');
