@@ -1,5 +1,5 @@
 <div class="container" ng-controller="GaleryVertController">
-	<div class="row" ng-show="maxPages  > 1">
+	<div class="row" ng-show="pagination.maxPages  > 1">
 			<div class="col-xs-12 col-sm-3 col-md-3 row-pad-10">
 					<select class="form-control custom-select pull-left" ng-model="imgPerPage" ng-change="reload()">
 						  <option ng-repeat="option in options" ng-value="option.value">{{option.description}}</option>
@@ -12,12 +12,12 @@
 	</div>
 	<div class="row" >
 		<div class="col-xs-4 col-sm-3 col-pad-0" ng-repeat="product in products">
-			<div class="img-vert-container">
+			<div ng-class="imgContainer">
 				<img ng-src={{product.image.path}} alt={{product.name}} class="custom-img-responsive percentual-pad-8">
 			</div>
 		</div>
 	</div>
-	<div class="row" ng-show="maxPages  > 1">
+	<div class="row" ng-show="pagination.maxPages  > 1">
 		<div class="col-xs-12 row-pad-10">
 			<div ui-view="pagination"></div>
 		</div>

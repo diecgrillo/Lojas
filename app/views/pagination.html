@@ -1,9 +1,9 @@
-<ul uib-pagination 
-	total-items="numOfImages" 
+<ul uib-pagination
+	total-items="pagination.numOfImages"
 	items-per-page="imgPerPage"
-	ng-model="currentPage" 
-	max-size="maxPages" 
-	class="pagination custom-pagination pull-right" 
+	ng-model="pagination.currentPage"
+	max-size="pagination.maxPages"
+	class="pagination custom-pagination pull-right"
 	boundary-link-numbers="true"
 	ng-change="reload()">
 </ul>

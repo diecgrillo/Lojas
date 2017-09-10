@@ -52,17 +52,6 @@ imageRouter.route('/carousel')
     });
 });
 
-imageRouter.route('/marca')
-.get(function(req,res,next){
-    Images.find({tag:"marca"}, function (err, image) {
-        if (err) {
-            err.status = 400;
-            return next(err);
-        }
-        res.json(image);
-    });
-});
-
 imageRouter.route('/:imageId')
 .get(function(req,res,next){
     Images.findById(req.params.imageId, function (err, image) {

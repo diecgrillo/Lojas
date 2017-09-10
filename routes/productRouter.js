@@ -61,7 +61,7 @@ productRouter.route('/:id')
     });
 });
 
-productRouter.route('/:category/size')
+productRouter.route('/:category/all/size')
 .get(function(req,res,next){
     var category = req.params.category;
   	Products.count({category:category}, function(err, count){
@@ -70,7 +70,7 @@ productRouter.route('/:category/size')
   	});
 });
 
-productRouter.route('/:category/:page-limit:limit')
+productRouter.route('/:category/all/:page-limit:limit')
 .get(function(req,res,next){
 	//Getting the limit and skip
 	var limit = isNaN(req.params.limit)?10:Number(req.params.limit);
@@ -79,6 +79,32 @@ productRouter.route('/:category/:page-limit:limit')
 
 	console.log('skip='+ skip + ", limit="+limit);
 	Products.find({category:category},{},{skip:skip, limit:limit}).populate('image').exec(function (err, product) {
+        if (err) throw err;
+        res.json(product);
+    });
+});
+
+
+productRouter.route('/:category/:brand/size')
+.get(function(req,res,next){
+    var category = req.params.category;
+    var brand = req.params.brand;
+  	Products.count({category:category, brand:brand}, function(err, count){
+  		  console.log( "Number of docs: ", count );
+  		  res.json({size:count});
+  	});
+});
+
+productRouter.route('/:category/:brand/:page-limit:limit')
+.get(function(req,res,next){
+	//Getting the limit and skip
+	var limit = isNaN(req.params.limit)?10:Number(req.params.limit);
+	var skip = isNaN(req.params.page)?0:Number((req.params.page-1)*limit);
+  var category = req.params.category;
+  var brand = req.params.brand;
+
+	console.log('skip='+ skip + ", limit="+limit);
+	Products.find({category:category, brand:brand},{},{skip:skip, limit:limit}).populate('image').exec(function (err, product) {
         if (err) throw err;
         res.json(product);
     });

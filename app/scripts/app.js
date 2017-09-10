@@ -39,7 +39,7 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 			})
 			// route for the galeria
 			.state('app.galery-horz', {
-					url:'galery-horz/:category',
+					url:'galery-horz/:category/:brand:/:imgContainer',
 					views: {
 							'content@': {
 									templateUrl : 'views/galery-horz.html',
@@ -51,7 +51,11 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					}
 			})
 			.state('app.galery-vert', {
-					url:'galery-vert/:category',
+					url:'galery-vert/:category?brand?imgContainer',
+					params: {
+						brand: "all",
+						imgContainer: "img-vert-container"
+					},
 					views: {
 							'content@': {
 									templateUrl : 'views/galery-vert.html',

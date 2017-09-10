@@ -5,16 +5,16 @@
 
 .navbar-default .custom-menu-item > li > a, .navbar-default .custom-brand
 .active > a, .navbar-default .custom-brand
-{color: #f1f1f1;} /*menu text color*/
+{color: #f1f1f1 !important;} /*menu text color*/
 
 .navbar-default .custom-menu-item > li > a:hover,
 .navbar-default .custom-menu-item > li > a:focus,
 .navbar-default .custom-menu-item > .active > a,
 .navbar-default .custom-menu-item > .active > a:hover,
 .navbar-default .custom-menu-item > .active > a:focus,
-ul.nav.navbar-nav .dropdown.open .dropdown-toggle
+ul.nav.navbar-nav .custom-item.open .dropdown-toggle
 /*focus and active menu items- text and background color*/
-{color: #f1f1f1; background: #b27677;}
+{color: #f1f1f1 !important; background: #b27677 !important;}
 
 #bunner { margin-top:8px;} /*margin to center paragraph*/
 

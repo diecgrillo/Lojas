@@ -56,10 +56,12 @@ angular.module('templateApp')
 			};
 
 			img.onload = function () {
-				$scope.navBarWidth = navBar.clientWidth - img.naturalWidth - 30;
-				$scope.$apply();
-				$scope.itemHeight = img.clientHeight / getItemsLinesCount();
-				$scope.$apply();
+				if(isImageVisible){
+						$scope.navBarWidth = navBar.clientWidth - img.naturalWidth - 30;
+						$scope.$apply();
+						$scope.itemHeight = img.clientHeight / getItemsLinesCount();
+						$scope.$apply();
+				}
 			}
 
 			//Get the number of lines occupied by items
@@ -111,26 +113,32 @@ angular.module('templateApp')
 			];
 
 		var category = $stateParams.category;
+		var brand = $stateParams.brand;
+		var imgContainer = $stateParams.imgContainer;
+
+		$scope.imgContainer = imgContainer;
 
 		$scope.imgPerPage = 36;
 
 		$scope.product = [];
 
 		//Pagination Component
-		$scope.numOfImages = 0;
-		$scope.currentPage = 1;
-		$scope.maxPages = 5;
+		$scope.pagination = {
+		    currentPage: 1,
+		    maxPages: 5,
+		    numOfImages: 0
+		};
 
 		$scope.setPage = function (pageNo) {
-			$scope.currentPage = pageNo;
+			$scope.pagination.currentPage = pageNo;
 		};
 
 		$scope.getProducts = function(){
-				return productFactory.getProductsSize().get({category:category},
+				return productFactory.getProductsSize().get({category:category, brand:brand},
 				function(response) {
-					$scope.numOfImages = response.size;
-					$scope.maxPages = Math.ceil($scope.numOfImages/$scope.imgPerPage);
-					$scope.products = productFactory.getProducts().getProductsRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category},
+					$scope.pagination.numOfImages = response.size;
+					$scope.pagination.maxPages = Math.ceil($scope.pagination.numOfImages/$scope.imgPerPage);
+					$scope.products = productFactory.getProducts().getProductsRange({limit:$scope.imgPerPage, page:$scope.pagination.currentPage, category:category, brand:brand},
 						function(response) {
 							$scope.products = response;
 						},
@@ -158,9 +166,14 @@ angular.module('templateApp')
 				{value: 9, description: '9 Por Página'},
 				{value: 36, description: '36 Por Página'},
 				{value: 48, description: '48 Por Página'}
-			];
+		];
 
-			var category = $stateParams.category;
+		var category = $stateParams.category;
+		var brand = $stateParams.brand;
+
+		if(!brand){
+				brand = "all";
+		}
 
 		$scope.imgPerPage = 36;
 
@@ -179,7 +192,7 @@ angular.module('templateApp')
 			return horzImagesFactory.getHorzImagesSize().get(
 				function(response) {
 					$scope.numOfImages = response.size;
-					$scope.horzImages = horzImagesFactory.getHorzImages().getProductsRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category},
+					$scope.horzImages = horzImagesFactory.getHorzImages().getProductsRange({limit:$scope.imgPerPage, page:$scope.currentPage, category:category, brand:brand},
 						function(response) {
 							$scope.horzImages = response;
 						},
@@ -256,7 +269,7 @@ angular.module('templateApp')
 
 		$scope.products = [];
 
-		$scope.products = productFactory.getProducts().getProductsRange({limit:4, page:1, category:"home"},
+		$scope.products = productFactory.getProducts().getProductsRange({limit:4, page:1, category:"home", brand:"all"},
 			function(response) {
 				$scope.horzImages = response;
 			},
@@ -265,15 +278,16 @@ angular.module('templateApp')
 			}
 		);
 	}])
-	.controller('UploadFilesController', ['$scope', '$http', 'postImageFactory', 'productFactory', 'Upload', '$timeout', function ($scope, $http, postImageFactory, productFactory, Upload, $timeout) {
+	.controller('UploadFilesController', ['$scope', '$http', 'postImageFactory', 'postProductFactory', 'Upload', '$timeout', function ($scope, $http, postImageFactory, postProductFactory, Upload, $timeout) {
 		// Data to be sent to the server with the upload request
-		$scope.brands = ["recco", "luppo", "doloren", "plie", "hotflowers","none"];
-		$scope.categories = ["meias", "cuecas", "pijamas", "lingerie", "robes", "roupões", "gestantes", "modeladores", "sex shop","home"];
+		$scope.brands = ["recco", "liebe", "luppo", "duloren", "plie", "elegance","hotflowers", 'liz', "none"];
+		$scope.categories = ["meias", "cuecas", "pijamas", "lingerie", "camisolas", "robes", "roupões", "gestantes", "modeladores", "sex shop","home", "marca"];
 
 		$scope.orientation = "vertical";
 		$scope.category = $scope.categories[0];
 		$scope.brand = $scope.brands[0];
 		$scope.name = "Conheça a Loja";
+		//$scope.name = "none";
 
 		$scope.uploadFiles = function (files) {
 				$scope.files = [];
@@ -317,7 +331,7 @@ angular.module('templateApp')
 																							image: img._id
 																					}
 
-																					productFactory.save(product,
+																					postProductFactory.save(product,
 																							function(prod) {
 																									$scope.files[j].status = "OK";
 																									$scope.files[j].message = "Arquivo carregado com sucesso!"

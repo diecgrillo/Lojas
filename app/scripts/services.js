@@ -27,7 +27,7 @@ angular.module('templateApp')
 			return $resource(baseURL+"image/horz-featured");
 		};
 	}])
-	.service('productFactory', ['$resource', 'baseURL', function($resource, baseURL){
+	.service('postProductFactory', ['$resource', 'baseURL', function($resource, baseURL){
 			return $resource(baseURL+"product");
 	}])
 	.service('postImageFactory', ['$resource', 'baseURL', function($resource, baseURL){
@@ -35,7 +35,7 @@ angular.module('templateApp')
 	}])
 	.service('productFactory', ['$resource', 'baseURL', function($resource, baseURL){
 		this.getProducts = function(){
-			return $resource(baseURL+"product/:category/:page-limit:limit", {},
+			return $resource(baseURL+"product/:category/:brand/:page-limit:limit", {},
 			{
 				getProductsRange:{
 					method: 'GET',
@@ -43,13 +43,14 @@ angular.module('templateApp')
 					params:{
 						limit:'@limit',
 						page:'@page',
-						category:'@category'
+						category:'@category',
+						brand:'@brand'
 					}
 				}
 			});
 		};
 		this.getProductsSize = function(){
-			return $resource(baseURL+"product/:category/size");
+			return $resource(baseURL+"product/:category/:brand/size");
 		};
 	}])
 	.service('horzMediaFactory', ['$resource', 'baseURL', function($resource, baseURL){
@@ -80,6 +81,6 @@ angular.module('templateApp')
 	}])
 	.service('marcasFactory', ['$resource', 'baseURL', function($resource, baseURL){
 			this.getImages = function(){
-				return $resource(baseURL+"image/marca");
+				return $resource(baseURL+"product/marca/none/1-limit16");
 			};
 	}]);
