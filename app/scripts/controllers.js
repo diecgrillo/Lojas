@@ -125,7 +125,7 @@ angular.module('templateApp')
 		//Pagination Component
 		$scope.pagination = {
 		    currentPage: 1,
-		    maxPages: 5,
+		    maxPages: 0,
 		    numOfImages: 0
 		};
 
@@ -134,20 +134,24 @@ angular.module('templateApp')
 		};
 
 		$scope.getProducts = function(){
+				$scope.waitpromise = true;
 				return productFactory.getProductsSize().get({category:category, brand:brand},
 				function(response) {
 					$scope.pagination.numOfImages = response.size;
 					$scope.pagination.maxPages = Math.ceil($scope.pagination.numOfImages/$scope.imgPerPage);
 					$scope.products = productFactory.getProducts().getProductsRange({limit:$scope.imgPerPage, page:$scope.pagination.currentPage, category:category, brand:brand},
 						function(response) {
+							$scope.waitpromise = false;
 							$scope.products = response;
 						},
 						function(response) {
+							$scope.waitpromise = false;
 							$scope.message = "Error: "+response.status + " " + response.statusText;
 						}
 					);
 				},
 				function(response) {
+					$scope.waitpromise = false;
 					$scope.message = "Error: "+response.status + " " + response.statusText;
 				}
 			);
@@ -213,28 +217,6 @@ angular.module('templateApp')
 
 		$scope.getHorzImages();
 	}])
-	.controller('MediaVertController', ['$scope', 'vertMediaFactory', function($scope, vertMediaFactory) {
-		$scope.vertMedias = [];
-		$scope.vertMedias = vertMediaFactory.getVertMedias().query(
-			function(response) {
-				$scope.vertMedias = response;
-			},
-			function(response) {
-				$scope.message = "Error: "+response.status + " " + response.statusText;
-			}
-		);
-	}])
-	.controller('MediaHorzController', ['$scope', 'horzMediaFactory', function($scope, horzMediaFactory) {
-		$scope.horzMedias = [];
-		$scope.horzMedias = horzMediaFactory.getHorzMedias().query(
-			function(response) {
-				$scope.horzMedias = response;
-			},
-			function(response) {
-				$scope.message = "Error: "+response.status + " " + response.statusText;
-			}
-		);
-	}])
 	.controller('HomeRow1Controller', ['$scope', 'vertMediaFactory', function($scope, vertMediaFactory) {
 
 
@@ -277,6 +259,40 @@ angular.module('templateApp')
 				$scope.message = "Error: "+response.status + " " + response.statusText;
 			}
 		);
+	}])
+	.controller('ContactController', ['$scope', 'sendEmailFactory', function($scope, sendEmailFactory) {
+			$scope.contactus = {
+					name: "",
+					tel: {
+							areaCode:"",
+							number:""
+					},
+					email: "",
+					text: ""
+			}
+
+			console.log("Teste")
+			$scope.sendEmail = function() {
+				$scope.alertType = "info";
+				$scope.message = "Aguarde enquanto enviamos a sua mensagem."
+				sendEmailFactory.save($scope.contactus,
+						function(contactus) {
+								$scope.message = "Sua mensagem foi enviada com sucesso.";
+								$scope.alertType = "success";
+								$scope.contactus = {name: "", tel: {areaCode:"", number:""},
+										email: "", text: ""
+								}
+								$scope.contactusForm.$setPristine();
+								$scope.contactusForm.$setUntouched();
+						},
+						function(response) {
+								console.log("Error: "+response.status + " " + response.statusText);
+								$scope.message = "Não conseguimos enviar a sua mensagem. Por favor entre em contato através do telefone ou e-mail da loja.";
+								$scope.alertType = "danger";
+						}
+				);
+
+			}
 	}])
 	.controller('UploadFilesController', ['$scope', '$http', 'postImageFactory', 'postProductFactory', 'Upload', '$timeout', function ($scope, $http, postImageFactory, postProductFactory, Upload, $timeout) {
 		// Data to be sent to the server with the upload request

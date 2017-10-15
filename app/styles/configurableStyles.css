@@ -1,7 +1,3 @@
-#map-container {
-	height: 300px; /* Logo size*/
-}
-
 .btn-whatsapp{
   background-color: #128c7e;
 	color: #FFFFFF;
@@ -15,6 +11,10 @@
 .btn-mastercard{
   background-color: #FFFFFF;
 	color: red;
+}
+
+.custom-label{
+	color: #760000;
 }
 
 .visa-ring {
@@ -103,6 +103,31 @@
 	.custom-pagination {
 		margin: 0px !important;
 	}
+
+  .custom-pagination>li>a,
+  .custom-pagination>li>a:hover,
+  .custom-pagination>li>a:focus{
+    color: #760000;
+  }
+  .custom-pagination>.active>a,
+  .custom-pagination>.active>a:focus,
+  .custom-pagination>.active>a:hover{
+    border-color: #760000;
+    background: #760000;
+    color: #fff;
+  }
+
+/*
+	.map-container {
+			height: 220px;
+	}
+
+	.panel-body-center {
+		position: relative;
+	  top: 50%;
+	  transform: translateY(-70%);
+	}
+	*/
 }
 
 @media (max-width:768px) {
@@ -123,6 +148,10 @@
 	.custom-pagination {
 		float: left !important;
 		margin: 0px !important;
+	}
+
+	.map-container {
+			height: auto;
 	}
 }
 

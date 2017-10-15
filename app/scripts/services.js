@@ -83,4 +83,7 @@ angular.module('templateApp')
 			this.getImages = function(){
 				return $resource(baseURL+"product/marca/none/1-limit16");
 			};
+	}])
+	.service('sendEmailFactory', ['$resource', 'baseURL', function($resource, baseURL){
+			return $resource(baseURL+"email");
 	}]);

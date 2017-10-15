@@ -31,6 +31,7 @@ var index = require('./routes/index');
 var imageRouter = require('./routes/imageRouter');
 var uploadRouter = require('./routes/uploadRouter');
 var productRouter = require('./routes/productRouter');
+var emailRouter = require('./routes/emailRouter');
 
 // Starting app
 var app = express();
@@ -49,11 +50,10 @@ app.use(express.static(path.join(__dirname, 'app')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', index);
-//app.use('/users', users);
-//app.use('/media', mediaRouter);
 app.use('/image', imageRouter);
 app.use('/upload', uploadRouter);
 app.use('/product', productRouter);
+app.use('/email', emailRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

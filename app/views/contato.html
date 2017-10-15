@@ -1,64 +1,88 @@
-<div class="container">
-	<div class="row row-pad-default">
-		<div class="col-xs-12 col-sm-5 nosso-endereco">
-			<h1 class="text-center">Nosso Endereco</h1>
-			<p class="text-center">
-				Rua Benedito da Silveira Franco, n.10<br>
-				Vila Santa Luzia, Itatiba-SP<br>
-				CEP 13255-320<br>
-				<span class="glyphicon glyphicon-phone" aria-hidden="true"> Tel: (11) 4524-3871</span><br>
-			</p>
-		</div>
-		<div id="map-container" class="col-xs-12 col-sm-7">
-			<ng-map center="[-23.011767,-46.84496]" style="">
-				<marker position="[-23.011767,-46.84496]" />
-			</ng-map>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			  <h1>Entre em contato</h1>
-		</div>
-		<div class="col-xs-12 col-sm-9">
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Nome</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="Nome">
-					</div>
+<div class="container" ng-controller="ContactController">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-pad-0">
+				<div class="col-xs-12">
+					  <h2 class="custom-label text-center">Entre em contato</h2>
 				</div>
-				<div class="form-group">
-					<label for="telnum" class="col-sm-2 control-label">Telefone</label>
-					<div class="col-xs-5 col-sm-4 col-md-3">
-						<div class="input-group">
-							<div class="input-group-addon">(</div>
-								<input type="tel" class="form-control" placeholder="XX">
-							<div class="input-group-addon">)</div>
+				<div class="col-xs-12">
+					<form class="form-horizontal" name="contactusForm" ng-submit="sendEmail()" novalidate>
+						<div class="form-group" ng-class="{'has-error has-feedback' : contactusForm.name.$error.required && !contactusForm.name.$pristine}">
+							<label class="col-sm-2 custom-label control-label">Nome</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name" placeholder="Nome"
+										ng-model="contactus.name" required>
+								<span ng-show="contactusForm.name.$invalid && !contactusForm.name.$pristine"
+										class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+								<span ng-show="contactusForm.name.$error.required && !contactusForm.name.$pristine"
+										class="help-block"> O campo <strong>Nome</strong> é obrigatório.</span>
+							</div>
 						</div>
-					</div>
-					<div class="col-xs-7 col-sm-6 col-md-7">
-								<input type="tel" class="form-control" placeholder="XXXX-XXXX">
-					</div>
+						<div class="form-group">
+							<label class="col-sm-2 custom-label control-label">Telefone</label>
+							<div class="col-sm-10 col-pad-0">
+									<div class="col-xs-5">
+										<div class="input-group">
+											<div class="input-group-addon">(</div>
+												<input type="tel" class="form-control" placeholder="XX" ng-model="contactus.tel.areaCode">
+											<div class="input-group-addon">)</div>
+										</div>
+									</div>
+									<div class="col-xs-7">
+												<input type="tel" class="form-control" placeholder="XXXX-XXXX" ng-model="contactus.tel.number">
+									</div>
+							</div>
+						</div>
+						<div class="form-group" ng-class="{'has-error has-feedback' : contactusForm.email.$invalid && contactusForm.email.$touched
+								|| (contactusForm.email.$error.required && !contactusForm.email.$pristine)}">
+								<label class="col-sm-2 custom-label control-label">E-mail</label>
+								<div class="col-sm-10">
+										<input type="email" class="form-control" name="email" placeholder="E-mail"
+												ng-model=contactus.email required>
+										<span ng-show="contactusForm.email.$invalid && contactusForm.email.$touched"
+												class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+										<span ng-show="contactusForm.email.$invalid && contactusForm.email.$touched"
+												class="help-block"> Entre com um endereço de e-mail válido</span>
+										<span ng-show="contactusForm.email.$error.required && !contactusForm.email.$pristine"
+												class="help-block"> O campo <strong>E-mail</strong> é obrigatório</span>
+								</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 custom-label control-label">Mensagem</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="12" ng-model=contactus.text>
+								</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-danger"
+									ng-disabled="contactusForm.$invalid">Enviar</button>
+							</div>
+						</div>
+						<div ng-show='alertType' ng-class="{'alert alert-danger': alertType==='danger',
+									'alert alert-success': alertType === 'success',
+									'alert alert-info': alertType === 'info'}">
+									<i class="fa fa-spinner fa-spin" style="font-size:24px" ng-if="alertType === 'info'"></i>
+									{{message}}
+						</div>
+					</form>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Email</label>
-					<div class="col-sm-10">
-						<input type="email" class="form-control" placeholder="Email">
-					</div>
+			</div>
+			<div class="col-sm-12 col-md-6 row-pad-default col-pad-0">
+				<div class="col-xs-12 row-pad-default map-container">
+						<ng-map class="map-container" center="Licristy Lingerie e Acessórios" zoom="19">
+								<marker position="Licristy Lingerie e Acessórios"/>
+						</ng-map>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">Mensagem</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="12">
-						</textarea>
-					</div>
+				<div class="col-xs-12 row-pad-default">
+						<h2 class="text-center custom-label">Nosso Endereço</h2>
+						<p class="text-center">
+								Rua Benedito da Silveira Franco, n.10<br>
+								Vila Santa Luzia, Itatiba-SP<br>
+								CEP 13255-320<br>
+								<span class="glyphicon glyphicon-phone" aria-hidden="true"> Tel: (11) 4524-3871</span><br>
+						</p>
 				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">Enviar</button>
-					</div>
-				</div>
-			</form>
 		</div>
 	</div>
 </div>

@@ -1,12 +1,16 @@
 <div class="container" ng-controller="GaleryVertController">
-	<div class="row" ng-show="pagination.maxPages  > 1">
+	<div class="row" ng-if='waitpromise' style="height:100vh">
+				<i class="fa fa-spinner fa-spin" style="font-size:24px;text-align:center;display:block;margin-top:40vh" ng-if="waitpromise"></i>
+				{{message}}
+	</div>
+	<div class="row">
 			<div class="col-xs-12 col-sm-3 col-md-3 row-pad-10">
-					<select class="form-control custom-select pull-left" ng-model="imgPerPage" ng-change="reload()">
+					<select ng-show="pagination.numOfImages > 24"  class="form-control custom-select pull-left" ng-model="imgPerPage" ng-change="reload()">
 						  <option ng-repeat="option in options" ng-value="option.value">{{option.description}}</option>
 					</select>
 			</div>
 
-			<div class="col-xs-12 col-sm-7 col-md-5 col-sm-offset-2 col-md-offset-4 row-pad-10">
+			<div ng-show="pagination.maxPages  > 1" class="col-xs-12 col-sm-7 col-md-5 col-sm-offset-2 col-md-offset-4 row-pad-10">
 				<div ui-view="pagination"></div>
 			</div>
 	</div>

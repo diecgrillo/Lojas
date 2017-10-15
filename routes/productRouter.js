@@ -80,7 +80,7 @@ productRouter.route('/:category/all/:page-limit:limit')
 	console.log('skip='+ skip + ", limit="+limit);
 	Products.find({category:category},{},{skip:skip, limit:limit}).populate('image').exec(function (err, product) {
         if (err) throw err;
-        res.json(product);
+        res.json(product);        
     });
 });
 

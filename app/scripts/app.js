@@ -14,8 +14,7 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 						templateUrl : 'views/home.html'
 					},
 					'carousel@app': {
-						templateUrl : 'views/carousel-image.html',
-						controller  : 'CarouselController'
+						templateUrl : 'views/carousel-image.html'
 					},
 					'home-row1@app': {
 						templateUrl : 'views/home-row1.html',
@@ -42,8 +41,7 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					url:'galery-horz/:category/:brand:/:imgContainer',
 					views: {
 							'content@': {
-									templateUrl : 'views/galery-horz.html',
-									controller  : 'GaleryHorzController'
+									templateUrl : 'views/galery-horz.html'
 							},
 							'pagination@app.galery-horz': {
 									templateUrl : 'views/pagination.html'
@@ -58,20 +56,7 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					},
 					views: {
 							'content@': {
-									templateUrl : 'views/galery-vert.html',
-									controller  : 'GaleryVertController'
-						 },
-						 'pagination@app.galery-vert': {
-								 templateUrl : 'views/pagination.html'
-						 }
-					}
-			})
-			.state('app.galery-vert-modelador', {
-					url:'galery-vert-modelador/:category',
-					views: {
-							'content@': {
-									templateUrl : 'views/galery-vert-modelador.html',
-									controller  : 'GaleryVertController'
+									templateUrl : 'views/galery-vert.html'
 						 },
 						 'pagination@app.galery-vert': {
 								 templateUrl : 'views/pagination.html'
@@ -83,7 +68,6 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					views: {
 							'content@': {
 									templateUrl : 'views/contato.html'
-									//controller  : 'ContatoController'
 						 }
 					}
 			})
@@ -92,7 +76,6 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					views: {
 							'content@': {
 									templateUrl : 'views/evento.html'
-									//controller  : 'AboutController'
 						 }
 					}
 			})
@@ -100,8 +83,7 @@ angular.module('templateApp', ['ui.router', 'ngResource', 'ngMap', 'ui.bootstrap
 					url:'upload',
 					views: {
 							'content@': {
-									templateUrl : 'views/uploadImages.html',
-									controller  : 'UploadFilesController'
+									templateUrl : 'views/uploadImages.html'
 						 }
 					}
 			});
