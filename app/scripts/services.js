@@ -22,7 +22,6 @@ angular.module('templateApp')
 		this.getHorzImagesSize = function(){
 			return $resource(baseURL+"image/horz-size");
 		};
-
 		this.getFeaturedHorzImages = function(){
 			return $resource(baseURL+"image/horz-featured");
 		};
